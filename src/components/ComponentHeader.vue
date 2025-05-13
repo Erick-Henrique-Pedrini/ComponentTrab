@@ -1,12 +1,9 @@
 <script setup>
-import { defineEmits, ref } from 'vue';
+import { defineEmits, } from 'vue';
 
-const emit = defineEmits('update:modelValue'); 
-const showCart = ref(false)
-const exibirCart = () => {
-  showCart.value ? showCart.value = false : showCart.value = true; 
-  emit('update:modelValue', showCart.value); 
-};
+defineEmits(['updateShowCart']);
+
+
 </script>
 <template>
       <header>
@@ -27,7 +24,7 @@ const exibirCart = () => {
         <li>Devoluções</li>
       </ul>
       <ul class="icons">
-        <li><span class="mdi mdi-cart" @click="exibirCart" ></span></li>
+        <li><span class="mdi mdi-cart" @click="$emit('updateShowCart', exibirCart)" ></span></li>
         <li><span class="mdi mdi-heart"></span></li>
         <li><span class="mdi mdi-account"></span></li>
       </ul>

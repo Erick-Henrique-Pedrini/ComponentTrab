@@ -1,8 +1,13 @@
 
 <script setup>
+import {ref} from "vue"
 import ComponentFooter from "./components/ComponentFooter.vue";
 import ComponentHeader from "./components/ComponentHeader.vue"
 import ComponentHero from "./components/ComponentHero.vue";
+const showCart = ref(false)
+const exibirCart = () => {
+  showCart.value ? showCart.value = false : showCart.value = true; 
+};
 function decrementBookToCart(book) {
   const existingBook = cart.value.items.find((item) => item.id === book.id);
   if (existingBook.quantity === 1) {
@@ -29,7 +34,7 @@ function addToCart(book) {
   cart.value.total += book.price;
   alert(`Adicionado ${book.title} ao carrinho!`);
 }
-import { ref } from 'vue';
+
 
 const cart = ref({
   items: [],
@@ -95,11 +100,11 @@ const books = [
 ];
 
 
-const showCart = ref(false); 
+
 </script>
 
 <template>
-  <ComponentHeader v-model="showCart" />
+  <ComponentHeader @update-show-cart="exibirCart" />
    <main v-if="showCart">
   <section class="cart">
     <h2>Carrinho</h2>

@@ -1,6 +1,8 @@
 
 <script setup>
+import ComponentFooter from "./components/ComponentFooter.vue";
 import ComponentHeader from "./components/ComponentHeader.vue"
+import ComponentHero from "./components/ComponentHero.vue";
 function decrementBookToCart(book) {
   const existingBook = cart.value.items.find((item) => item.id === book.id);
   if (existingBook.quantity === 1) {
@@ -90,10 +92,14 @@ const books = [
     price: 15.81,
     author: 'Cecília Meireles',
   },
-];</script>
+];
+
+
+const showCart = ref(false); 
+</script>
 
 <template>
-  <ComponentHeader/>
+  <ComponentHeader v-model="showCart" />
    <main v-if="showCart">
   <section class="cart">
     <h2>Carrinho</h2>
@@ -151,39 +157,7 @@ const books = [
   </section>
 </main>
 <main v-else>
-  <section class="hero">
-    <div class="hero-content">
-      <h3 class="outlined">Livro destaque</h3>
-      <h2>Noc Ognia</h2>
-      <p>
-        Noc ognia é um romance de Erich-Emmanuel Schmitt, que narra a história
-        de um homem que vive em um mundo onde as pessoas não podem mais sonhar.
-        O livro é uma reflexão sobre a importância dos sonhos e da imaginação na
-        vida humana. Erich-Emmanuel Schmitt é um autor francês conhecido por
-        suas obras que exploram temas filosóficos e existenciais. Ele é um dos
-        autores mais traduzidos da França e suas obras têm sido amplamente
-        elogiadas pela crítica.
-      </p>
-      <button>Acessar página do livro</button>
-    </div>
-    <div class="hero-image">
-      <img src="/imgs/hero.png" alt="Hero Image" />
-    </div>
-  </section>
-   <section class="featured">
-        <div>
-            <span class="mdi mdi-truck"></span>
-            <h2>Frete grátis para SC</h2>
-        </div>
-        <div>
-            <span class="mdi mdi-star"></span>
-            <h2>Livros recomendados</h2>
-        </div>
-        <div>
-            <span class="mdi mdi-book-open-page-variant"></span>
-            <h2>Mais vendidos</h2>
-        </div>
-    </section>
+  <ComponentHero/>
     
 <section class="books">
   <article class="book" v-for="book in books" :key="book.id">
@@ -200,88 +174,10 @@ const books = [
   </article>
 </section>
 </main>
-<footer>
-  <nav>
-    <section class="upper-footer">
-      <div>
-        <p class="footer-title">
-          <a href="#"> IFbooks </a>
-        </p>
-        <ul>
-          <li><span class="mdi mdi-facebook" /></li>
-          <li><span class="mdi mdi-instagram" /></li>
-          <li><span class="mdi mdi-twitter" /></li>
-        </ul>
-      </div>
-      <div>
-        <p class="contact-text">Contato</p>
-        <p><span class="mdi mdi-phone" /> +55 47 99999-9999</p>
-        <p><span class="mdi mdi-clock" /> 8h às 23h - Seg a Sex</p>
-        <p><span class="mdi mdi-email" /> contato@ifbooks.com.br</p>
-        <div class="payment-methods">
-          <span class="mdi mdi-visa" />
-        </div>
-      </div>
-    </section>
-    <section class="lower-footer">
-      <p>&copy; Alguns direitos reservados. IFBooks. 2025</p>
-    </section>
-  </nav>
-</footer>
+<ComponentFooter/>
 </template>
 <style scoped>
 
-.hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5vh 9vw;
-  border-bottom: 2px solid #27ae6099;
-
-  & h2 {
-    color: #382c2c;
-    font-size: 3rem;
-    font-weight: 700;
-  }
-
-  & .hero-content {
-    width: 50%;
-    padding-right: 20px;
-    font-weight: 400;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-
-    & h3.outlined {
-      background-color: transparent;
-      color: #27ae60;
-      border: 2px solid #27ae60;
-      padding: 15px 20px;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
-    & button {
-      margin-top: 20px;
-    }
-
-    p {
-      width: 70%;
-    }
-  }
-
-  & .hero-image {
-    width: 50%;
-    text-align: right;
-    padding-right: 4vw;
-
-    & img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-}
 
 button {
   background-color: #27ae60;
@@ -373,59 +269,7 @@ button {
     }
   }
 }
-footer {
-  background-color: #27ae60;
-  padding: 2vh 8vw;
-  color: #fff;
 
-  .upper-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 100px;
-    border-bottom: 2px solid #fff;
-
-    & div {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-
-      & .footer-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-
-        & a {
-          text-decoration: none;
-          color: #fff;
-        }
-      }
-
-      & .contact-text {
-        font-size: 1.1rem;
-        font-weight: 700;
-      }
-    }
-  }
-
-  .lower-footer {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-    font-size: 0.8rem;
-  }
-
-  ul {
-    display: flex;
-    padding: 0;
-    gap: 20px;
-
-    li {
-      list-style: none;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-  }
-}
 cart {
   display: flex;
   flex-direction: column;
